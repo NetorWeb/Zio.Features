@@ -1,3 +1,4 @@
+using Zio.Features.Core.Extensions;
 using Zio.Features.DI.Autofac.Hosting;
 
 namespace Zio.Features.Web.Test
@@ -6,7 +7,7 @@ namespace Zio.Features.Web.Test
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args).Inject();
 
             builder.Host.AddAutofac();
             builder.Services.AddControllers();
