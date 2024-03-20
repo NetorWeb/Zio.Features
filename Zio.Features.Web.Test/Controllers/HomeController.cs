@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Zio.Features.Core;
+using Zio.Features.DI.Autofac.Abstraction;
 using Zio.Features.Service.Test.IServices;
 
 namespace Zio.Features.Web.Test.Controllers
@@ -10,7 +11,9 @@ namespace Zio.Features.Web.Test.Controllers
         ITestService testService,
         ITest2Service test2Service,
         ITest3Service test3Service,
-        ISecondService secondService
+        ISecondService secondService,
+        INamedResolver namedResolver,
+        INamedService namedService
     ) : ControllerBase
     {
         [HttpGet]
@@ -41,6 +44,19 @@ namespace Zio.Features.Web.Test.Controllers
             };
 
             return Results.Ok(result);
+        }
+
+        public IResult Named()
+        {
+           var data = namedResolver.Get<INamedService>("Named1").GetName();
+           var data2 = namedResolver.Get<INamedService>("Named2").GetName();
+           var date3 = namedService.GetName();
+           return Results.Ok(new
+           {
+               data,
+               data2,
+               date3
+           });
         }
     }
 }
