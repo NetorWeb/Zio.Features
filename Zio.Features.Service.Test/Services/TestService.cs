@@ -3,9 +3,8 @@ using Zio.Features.Service.Test.IServices;
 
 namespace Zio.Features.Service.Test.Services
 {
-    public class TestService : ITestService, ISecondService,ISingletonDependency
+    public class TestService : ITestService, ISecondService, ISingletonDependency
     {
-
         private object? _cacheData;
 
         public object GetData()
@@ -32,7 +31,7 @@ namespace Zio.Features.Service.Test.Services
         }
     }
 
-    public class Test2Service: ITest2Service, IScopedDependency
+    public class Test2Service : ITest2Service, IScopedDependency
     {
         private object? _cacheData;
 
@@ -82,8 +81,13 @@ namespace Zio.Features.Service.Test.Services
     {
         private object? _cacheData;
 
+        [Autowired]
+        public ITestService TestService { get; set; }
+
         public object GetData()
         {
+            var data = TestService.GetData();
+
             if (_cacheData is not null)
             {
                 return _cacheData;

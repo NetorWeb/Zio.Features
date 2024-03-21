@@ -5,6 +5,10 @@ using System.Reflection;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Zio.Features.Core.DependencyInjection;
 
@@ -14,7 +18,11 @@ namespace Zio.Features.DI.Autofac.Hosting
     {
         public static IHostBuilder AddAutofac(this IHostBuilder hostBuilder)
         {
-            hostBuilder.ConfigureServices((_, services) => { })
+            hostBuilder.ConfigureServices((_, services) =>
+                {
+                    services.Replace(
+                        ServiceDescriptor.Scoped<IControllerActivator, ServiceBasedControllerActivator>());
+                })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>((_, containerBuilder) =>
                 {
@@ -30,6 +38,12 @@ namespace Zio.Features.DI.Autofac.Hosting
                     {
                         RegisterTypes(containerBuilder, item.GetTypes());
                     }
+
+                    // 获取所有控制器类型并使用属性注入
+                    var controllerBaseType = typeof(ControllerBase);
+                    containerBuilder.RegisterAssemblyTypes(assembly)
+                        .Where(t => controllerBaseType.IsAssignableFrom(t) && t != controllerBaseType)
+                        .PropertiesAutowired(new AutowiredPropertySelector());
                 });
 
             return hostBuilder;
@@ -37,7 +51,6 @@ namespace Zio.Features.DI.Autofac.Hosting
 
         private static void RegisterTypes(ContainerBuilder containerBuilder, IEnumerable<Type> types)
         {
-
             foreach (var type in types.Where(x =>
                          x is { IsAbstract: false, IsInterface: false } &&
                          (x.IsAssignableTo<ISingletonDependency>() ||
@@ -50,24 +63,35 @@ namespace Zio.Features.DI.Autofac.Hosting
                 if (type.IsAssignableTo<ISingletonDependency>())
                 {
                     registrationBuilder =
-                        containerBuilder.RegisterType(type).AsImplementedInterfaces().SingleInstance();
+                        containerBuilder
+                            .RegisterType(type)
+                            .PropertiesAutowired(new AutowiredPropertySelector())
+                            .AsImplementedInterfaces()
+                            .SingleInstance();
                 }
 
                 else if (type.IsAssignableTo<IScopedDependency>())
                 {
-                    registrationBuilder = containerBuilder.RegisterType(type).AsImplementedInterfaces()
+                    registrationBuilder = containerBuilder
+                        .RegisterType(type)
+                        .PropertiesAutowired(new AutowiredPropertySelector())
+                        .AsImplementedInterfaces()
                         .InstancePerLifetimeScope();
                 }
 
                 else if (type.IsAssignableTo<ITransientDependency>())
                 {
-                    registrationBuilder = containerBuilder.RegisterType(type).AsImplementedInterfaces()
+                    registrationBuilder = containerBuilder
+                        .RegisterType(type)
+                        .PropertiesAutowired(new AutowiredPropertySelector())
+                        .AsImplementedInterfaces()
                         .InstancePerDependency();
                 }
 
                 if (registrationBuilder != null && type.GetCustomAttribute<InjectAttribute>() != null)
                 {
-                    registrationBuilder.Named(type.GetCustomAttribute<InjectAttribute>().Name, type.GetInterfaces().First());
+                    registrationBuilder
+                        .Named(type.GetCustomAttribute<InjectAttribute>().Name, type.GetInterfaces().First());
                 }
             }
         }

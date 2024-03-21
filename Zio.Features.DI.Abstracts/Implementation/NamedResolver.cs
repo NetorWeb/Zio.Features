@@ -7,7 +7,7 @@ namespace Zio.Features.DI.Autofac.Implementation;
 
 public class NamedResolver(IComponentContext container) : INamedResolver, ISingletonDependency
 {
-    public T Get<T>(string serviceName)
+    public T Get<T>(string serviceName) where T : notnull
     {
         try
         {

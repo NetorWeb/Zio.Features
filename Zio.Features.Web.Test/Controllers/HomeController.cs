@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Zio.Features.Core;
+using Zio.Features.Core.DependencyInjection;
 using Zio.Features.DI.Autofac.Abstraction;
 using Zio.Features.Service.Test.IServices;
 
@@ -16,9 +17,20 @@ namespace Zio.Features.Web.Test.Controllers
         INamedService namedService
     ) : ControllerBase
     {
+
+        [Autowired]
+        public ITestService TestService { get; set; }
+        [Autowired]
+        public ISecondService SecondService { get; set; }
+        [Autowired]
+        public ITest2Service Test2Service { get; set; }
+        [Autowired]
+        public ITest3Service Test3Service { get; set; }
+
         [HttpGet]
         public IResult Index()
         {
+            
             object 作用域声明 = null;
             Scoped.Create((factory, scope) =>
             {
@@ -40,7 +52,14 @@ namespace Zio.Features.Web.Test.Controllers
                     Scope = test2Service.GetData(),
                     Transient = test3Service.GetData()
                 },
-                作用域声明
+                作用域声明,
+                属性注入 = new
+                {
+                    Single = TestService.GetData(),
+                    Second = SecondService.GetSecondData(),
+                    Scope = Test2Service.GetData(),
+                    Transient = Test3Service.GetData()
+                }
             };
 
             return Results.Ok(result);
