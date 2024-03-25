@@ -5,12 +5,14 @@ using System.Reflection;
 using Autofac;
 using Autofac.Builder;
 using Autofac.Extensions.DependencyInjection;
+using Autofac.Extras.DynamicProxy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Zio.Features.Core.DependencyInjection;
+using Zio.Features.DI.Autofac.Implementation;
 
 namespace Zio.Features.DI.Autofac.Hosting
 {
@@ -37,7 +39,11 @@ namespace Zio.Features.DI.Autofac.Hosting
                     foreach (var item in assemblies)
                     {
                         RegisterTypes(containerBuilder, item.GetTypes());
-                    }
+                    }     
+
+                    containerBuilder.Register(c => new CallLoggerInterceptor(Console.Out));
+
+                    containerBuilder.RegisterType<CustomValueObject>();
 
                     // 获取所有控制器类型并使用属性注入
                     var controllerBaseType = typeof(ControllerBase);
@@ -93,6 +99,8 @@ namespace Zio.Features.DI.Autofac.Hosting
                     registrationBuilder
                         .Named(type.GetCustomAttribute<InjectAttribute>().Name, type.GetInterfaces().First());
                 }
+
+                registrationBuilder?.EnableInterfaceInterceptors();
             }
         }
     }

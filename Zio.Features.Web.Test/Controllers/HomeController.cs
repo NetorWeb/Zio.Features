@@ -3,6 +3,7 @@ using Zio.Features.Core;
 using Zio.Features.Core.DependencyInjection;
 using Zio.Features.DI.Autofac.Abstraction;
 using Zio.Features.Service.Test.IServices;
+using Zio.Features.Service.Test.Services;
 
 namespace Zio.Features.Web.Test.Controllers
 {
@@ -14,23 +15,18 @@ namespace Zio.Features.Web.Test.Controllers
         ITest3Service test3Service,
         ISecondService secondService,
         INamedResolver namedResolver,
-        INamedService namedService
+        INamedService namedService,
+        IDelegateInvokeService delegateInvokeService
     ) : ControllerBase
     {
-
-        [Autowired]
-        public ITestService TestService { get; set; }
-        [Autowired]
-        public ISecondService SecondService { get; set; }
-        [Autowired]
-        public ITest2Service Test2Service { get; set; }
-        [Autowired]
-        public ITest3Service Test3Service { get; set; }
+        [Autowired] public ITestService TestService { get; set; }
+        [Autowired] public ISecondService SecondService { get; set; }
+        [Autowired] public ITest2Service Test2Service { get; set; }
+        [Autowired] public ITest3Service Test3Service { get; set; }
 
         [HttpGet]
         public IResult Index()
         {
-            
             object 作用域声明 = null;
             Scoped.Create((factory, scope) =>
             {
@@ -65,17 +61,24 @@ namespace Zio.Features.Web.Test.Controllers
             return Results.Ok(result);
         }
 
+        [HttpGet]
         public IResult Named()
         {
-           var data = namedResolver.Get<INamedService>("Named1").GetName();
-           var data2 = namedResolver.Get<INamedService>("Named2").GetName();
-           var date3 = namedService.GetName();
-           return Results.Ok(new
-           {
-               data,
-               data2,
-               date3
-           });
+            var data = namedResolver.Get<INamedService>("Named1").GetName();
+            var data2 = namedResolver.Get<INamedService>("Named2").GetName();
+            var date3 = namedService.GetName();
+            return Results.Ok(new
+            {
+                data,
+                data2,
+                date3
+            });
+        }
+
+        [HttpGet]
+        public IResult DelegateInvoke()
+        {
+            return Results.Ok(delegateInvokeService.GetData());
         }
     }
 }

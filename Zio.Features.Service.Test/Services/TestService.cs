@@ -1,8 +1,11 @@
-﻿using Zio.Features.Core.DependencyInjection;
+﻿using Autofac.Extras.DynamicProxy;
+using Zio.Features.Core.DependencyInjection;
+using Zio.Features.DI.Autofac.Implementation;
 using Zio.Features.Service.Test.IServices;
 
 namespace Zio.Features.Service.Test.Services
 {
+    //[Intercept(typeof(CallLoggerInterceptor))]
     public class TestService : ITestService, ISecondService, ISingletonDependency
     {
         private object? _cacheData;
