@@ -3,7 +3,7 @@ using System.Reflection;
 using Autofac.Core;
 using Zio.Features.Core.DependencyInjection;
 
-namespace Zio.Features.DI.Autofac;
+namespace Zio.Features.DI.Autofac.Implementation;
 
 public class AutowiredPropertySelector : IPropertySelector
 {
