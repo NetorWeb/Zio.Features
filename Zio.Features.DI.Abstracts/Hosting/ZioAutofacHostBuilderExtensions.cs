@@ -39,7 +39,7 @@ namespace Zio.Features.DI.Autofac.Hosting
                     foreach (var item in assemblies)
                     {
                         RegisterTypes(containerBuilder, item.GetTypes());
-                    }     
+                    }
 
                     containerBuilder.Register(c => new CallLoggerInterceptor(Console.Out));
 
@@ -57,11 +57,13 @@ namespace Zio.Features.DI.Autofac.Hosting
 
         private static void RegisterTypes(ContainerBuilder containerBuilder, IEnumerable<Type> types)
         {
-            foreach (var type in types.Where(x =>
-                         x is { IsAbstract: false, IsInterface: false } &&
-                         (x.IsAssignableTo<ISingletonDependency>() ||
-                          x.IsAssignableTo<IScopedDependency>() ||
-                          x.IsAssignableTo<ITransientDependency>())))
+            var generalTypes = types.Where(x =>
+                x is { IsAbstract: false, IsInterface: false, IsGenericType: false } &&
+                (x.IsAssignableTo<ISingletonDependency>() ||
+                 x.IsAssignableTo<IScopedDependency>() ||
+                 x.IsAssignableTo<ITransientDependency>()));
+
+            foreach (var type in generalTypes)
             {
                 IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>?
                     registrationBuilder = null;

@@ -16,7 +16,8 @@ namespace Zio.Features.Web.Test.Controllers
         ISecondService secondService,
         INamedResolver namedResolver,
         INamedService namedService,
-        IDelegateInvokeService delegateInvokeService
+        IDelegateInvokeService delegateInvokeService,
+        IEfCoreService efCoreService
     ) : ControllerBase
     {
         [Autowired] public ITestService TestService { get; set; }
@@ -79,6 +80,13 @@ namespace Zio.Features.Web.Test.Controllers
         public IResult DelegateInvoke()
         {
             return Results.Ok(delegateInvokeService.GetData());
+        }
+
+        [HttpGet]
+        public IResult EfCore()
+        {
+            return Results.Ok(efCoreService.GetData());
+
         }
     }
 }

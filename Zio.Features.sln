@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.EntityFramewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.Data", "Zio.Features.Data\Zio.Features.Data.csproj", "{113956E6-0EA9-456D-B6A7-092DD30B0A63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.EntityFrameworkCore.Mysql", "Zio.Features.EntityFrameworkCore.Mysql\Zio.Features.EntityFrameworkCore.Mysql.csproj", "{D32217FC-C66F-47AF-AF29-991D9479A4D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.Core.Test", "Zio.Features.Core.Test\Zio.Features.Core.Test.csproj", "{B89B67D1-2D16-4F39-8F92-0EBD9651227D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{113956E6-0EA9-456D-B6A7-092DD30B0A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113956E6-0EA9-456D-B6A7-092DD30B0A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113956E6-0EA9-456D-B6A7-092DD30B0A63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32217FC-C66F-47AF-AF29-991D9479A4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32217FC-C66F-47AF-AF29-991D9479A4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32217FC-C66F-47AF-AF29-991D9479A4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32217FC-C66F-47AF-AF29-991D9479A4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{ED61B3E1-B9C9-4A43-AB85-DF429ACA7885} = {C2043877-F896-462F-B91A-A6430A36B057}
 		{A0810C0A-ECC3-4441-9800-8706D4DF2B14} = {F3C2C7A8-E158-4DAF-9ACA-0F57DFAE704D}
 		{113956E6-0EA9-456D-B6A7-092DD30B0A63} = {F3C2C7A8-E158-4DAF-9ACA-0F57DFAE704D}
+		{D32217FC-C66F-47AF-AF29-991D9479A4D7} = {F3C2C7A8-E158-4DAF-9ACA-0F57DFAE704D}
+		{B89B67D1-2D16-4F39-8F92-0EBD9651227D} = {C2043877-F896-462F-B91A-A6430A36B057}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C625C346-DDFC-4CB0-B0AE-43182BF7E01E}

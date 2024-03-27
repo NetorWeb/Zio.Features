@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zio.Features.Core\Zio.Features.Core.csproj" />
     <ProjectReference Include="..\Zio.Features.Service.Test\Zio.Features.Service.Test.csproj" />
   </ItemGroup>
 

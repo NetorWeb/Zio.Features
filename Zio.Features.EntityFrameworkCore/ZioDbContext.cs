@@ -8,7 +8,8 @@ namespace Zio.Features.EntityFrameworkCore;
 /// 核心数据库上下文
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
-public class ZioDbContext<TDbContext> : DbContext, IScopedDependency where TDbContext : DbContext
+public class ZioDbContext<TDbContext> : DbContext
+    where TDbContext : DbContext
 {
     protected ZioDbContext(DbContextOptions<TDbContext> options) : base(options)
     {
