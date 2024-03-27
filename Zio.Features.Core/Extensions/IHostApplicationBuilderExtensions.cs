@@ -2,8 +2,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Zio.Features.Core.DependencyInjection;
+using Zio.Features.Core.Abstraction.DependencyInjection;
 
 namespace Zio.Features.Core.Extensions
 {

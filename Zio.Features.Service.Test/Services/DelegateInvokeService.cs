@@ -1,4 +1,4 @@
-﻿using Zio.Features.Core.DependencyInjection;
+﻿using Zio.Features.Core.Abstraction.DependencyInjection;
 using Zio.Features.DI.Autofac.Implementation;
 using Zio.Features.Service.Test.IServices;
 

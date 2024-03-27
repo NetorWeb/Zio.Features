@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Zio.Features.Core.DependencyInjection;
 
 namespace Zio.Features.Core.Extensions;
 

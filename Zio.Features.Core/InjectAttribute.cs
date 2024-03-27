@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zio.Features.Core.DependencyInjection;
+namespace Zio.Features.Core;
 
 [AttributeUsage(AttributeTargets.Class)]
 public class InjectAttribute : Attribute

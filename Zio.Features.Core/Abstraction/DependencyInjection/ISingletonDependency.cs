@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zio.Features.Core.DependencyInjection
+namespace Zio.Features.Core.Abstraction.DependencyInjection
 {
     /// <summary>
-    /// 作用域
+    /// 单例
     /// </summary>
-    public interface IScopedDependency
+    public interface ISingletonDependency
     {
     }
 }

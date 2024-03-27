@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Zio.Features.Core.DependencyInjection;
+using Zio.Features.Core;
+using Zio.Features.Core.Abstraction.DependencyInjection;
 using Zio.Features.DI.Autofac.Implementation;
 
 namespace Zio.Features.DI.Autofac.Hosting

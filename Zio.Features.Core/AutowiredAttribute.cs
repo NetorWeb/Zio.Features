@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zio.Features.Core.DependencyInjection;
+namespace Zio.Features.Core;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class AutowiredAttribute : Attribute

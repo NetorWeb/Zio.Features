@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Autofac.Core;
-using Zio.Features.Core.DependencyInjection;
+using Zio.Features.Core;
 
 namespace Zio.Features.DI.Autofac.Implementation;
 

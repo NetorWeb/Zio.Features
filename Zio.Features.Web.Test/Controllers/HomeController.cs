@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Zio.Features.Core;
-using Zio.Features.Core.DependencyInjection;
 using Zio.Features.DI.Autofac.Abstraction;
 using Zio.Features.Service.Test.IServices;
-using Zio.Features.Service.Test.Services;
 
 namespace Zio.Features.Web.Test.Controllers
 {

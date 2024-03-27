@@ -1,6 +1,6 @@
 ﻿using System;
 using Autofac;
-using Zio.Features.Core.DependencyInjection;
+using Zio.Features.Core.Abstraction.DependencyInjection;
 using Zio.Features.DI.Autofac.Abstraction;
 
 namespace Zio.Features.DI.Autofac.Implementation;
