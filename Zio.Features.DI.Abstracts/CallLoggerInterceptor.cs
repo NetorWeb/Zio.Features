@@ -2,7 +2,7 @@
 using System.Linq;
 using Castle.DynamicProxy;
 
-namespace Zio.Features.DI.Autofac.Implementation;
+namespace Zio.Features.DI.Autofac;
 
 /// <summary>
 /// 方法调用拦截器

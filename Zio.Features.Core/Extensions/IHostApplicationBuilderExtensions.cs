@@ -1,8 +1,10 @@
-﻿using System.Linq;
-using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Zio.Features.Core.Abstraction.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Zio.Features.Core.DependencyInjection;
 
 namespace Zio.Features.Core.Extensions
 {
@@ -10,43 +12,25 @@ namespace Zio.Features.Core.Extensions
     {
         public static WebApplicationBuilder Inject(this WebApplicationBuilder builder)
         {
-            builder.Services.AddHostedService<GenericHostLifetimeEventsHostedService>();
-
-            var assembly = Assembly.GetExecutingAssembly();
-            builder.Services.Scan(scan =>
-                {
-                    scan.FromAssemblies(assembly)
-                        .AddClasses(c => c.Where(type => type.IsAssignableTo(typeof(ISingletonDependency))))
-                        .AsImplementedInterfaces().WithSingletonLifetime();
-
-                    scan.FromAssemblies(assembly)
-                        .AddClasses(c => c.Where(type => type.IsAssignableTo(typeof(IScopedDependency))))
-                        .AsImplementedInterfaces().WithScopedLifetime();
-
-                    scan.FromAssemblies(assembly)
-                        .AddClasses(c => c.Where(type => type.IsAssignableTo(typeof(ITransientDependency))))
-                        .AsImplementedInterfaces().WithTransientLifetime();
-                }
-            );
-
-            var referenceAssemblies = assembly.GetReferencedAssemblies().Select(Assembly.Load).ToArray();
-            builder.Services.Scan(scan =>
-                {
-                    scan.FromAssemblies(referenceAssemblies)
-                        .AddClasses(c => c.Where(type => type.IsAssignableTo(typeof(ISingletonDependency))))
-                        .AsImplementedInterfaces().WithSingletonLifetime();
-
-                    scan.FromAssemblies(referenceAssemblies)
-                        .AddClasses(c => c.Where(type => type.IsAssignableTo(typeof(IScopedDependency))))
-                        .AsImplementedInterfaces().WithScopedLifetime();
-
-                    scan.FromAssemblies(referenceAssemblies)
-                        .AddClasses(c => c.Where(type => type.IsAssignableTo(typeof(ITransientDependency))))
-                        .AsImplementedInterfaces().WithTransientLifetime();
-                }
-            );
+            App.ConfigureApplication(builder.Host);
 
             return builder;
         }
+
+        /// <summary>
+        /// 添加应用中间件
+        /// </summary>
+        /// <param name="app">应用构建器</param>
+        /// <param name="configure">应用配置</param>
+        /// <returns>应用构建器</returns>
+        internal static IApplicationBuilder UseApp(this IApplicationBuilder app,
+            Action<IApplicationBuilder> configure = null)
+        {
+            // 调用自定义服务
+            configure?.Invoke(app);
+            return app;
+        }
+
+        
     }
 }

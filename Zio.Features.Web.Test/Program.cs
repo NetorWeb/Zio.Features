@@ -9,7 +9,7 @@ namespace Zio.Features.Web.Test
         {
             var builder = WebApplication.CreateBuilder(args).Inject();
 
-            builder.Host.AddAutofac();
+            //builder.Host.AddAutofac();
             
             builder.Services.AddControllers();
 

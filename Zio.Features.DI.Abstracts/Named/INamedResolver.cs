@@ -1,4 +1,4 @@
-﻿namespace Zio.Features.DI.Autofac.Abstraction;
+﻿namespace Zio.Features.DI.Autofac.Named;
 
 /// <summary>
 /// 命名服务解析器

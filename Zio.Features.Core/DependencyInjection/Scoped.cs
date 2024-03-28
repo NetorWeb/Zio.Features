@@ -2,8 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Zio.Features.Core
+namespace Zio.Features.Core.DependencyInjection
 {
+    /// <summary>
+    /// 作用域声明
+    /// </summary>
     public static class Scoped
     {
         public static void Create(Action<IServiceScopeFactory?, IServiceScope> handler, IServiceScopeFactory? serviceScopeFactory = null)

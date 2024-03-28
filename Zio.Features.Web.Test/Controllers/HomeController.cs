@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Zio.Features.Core;
-using Zio.Features.DI.Autofac.Abstraction;
+using Zio.Features.Core.DependencyInjection;
+using Zio.Features.DI.Autofac.Named;
 using Zio.Features.Service.Test.IServices;
+using Zio.Features.Service.Test.Services;
 
 namespace Zio.Features.Web.Test.Controllers
 {
@@ -11,15 +13,16 @@ namespace Zio.Features.Web.Test.Controllers
         ITestService testService,
         ITest2Service test2Service,
         ITest3Service test3Service,
-        ISecondService secondService,
+        //ISecondService secondService,
         INamedResolver namedResolver,
         INamedService namedService,
         IDelegateInvokeService delegateInvokeService,
-        IEfCoreService efCoreService
+        IEfCoreService efCoreService ,
+        NoService noService
     ) : ControllerBase
     {
         [Autowired] public ITestService TestService { get; set; }
-        [Autowired] public ISecondService SecondService { get; set; }
+        //[Autowired] public ISecondService SecondService { get; set; }
         [Autowired] public ITest2Service Test2Service { get; set; }
         [Autowired] public ITest3Service Test3Service { get; set; }
 
@@ -32,7 +35,7 @@ namespace Zio.Features.Web.Test.Controllers
                 作用域声明 = new
                 {
                     Single = scope.ServiceProvider.GetService<ITestService>().GetData(),
-                    Second = scope.ServiceProvider.GetService<ISecondService>().GetSecondData(),
+                    //Second = scope.ServiceProvider.GetService<ISecondService>().GetSecondData(),
                     Scope = scope.ServiceProvider.GetService<ITest2Service>().GetData(),
                     Transient = scope.ServiceProvider.GetService<ITest3Service>().GetData()
                 };
@@ -43,17 +46,24 @@ namespace Zio.Features.Web.Test.Controllers
                 构造函数注入 = new
                 {
                     Single = testService.GetData(),
-                    Second = secondService.GetSecondData(),
+                    //Second = secondService.GetSecondData(),
                     Scope = test2Service.GetData(),
                     Transient = test3Service.GetData()
                 },
                 作用域声明,
                 属性注入 = new
                 {
-                    Single = TestService.GetData(),
-                    Second = SecondService.GetSecondData(),
-                    Scope = Test2Service.GetData(),
-                    Transient = Test3Service.GetData()
+                    Single = TestService?.GetData(),
+                    //Second = SecondService.GetSecondData(),
+                    Scope = Test2Service?.GetData(),
+                    Transient = Test3Service?.GetData()
+                },
+                静态方法注入=new
+                {
+                    Single = App.GetService<ITestService>().GetData(),
+                    //Second = secondService.GetSecondData(),
+                    Scope =  App.GetService<ITest2Service>().GetData(),
+                    Transient =  App.GetService<ITest3Service>().GetData()
                 }
             };
 
@@ -85,6 +95,12 @@ namespace Zio.Features.Web.Test.Controllers
         {
             return Results.Ok(efCoreService.GetData());
 
+        }
+
+        [HttpGet]
+        public IResult No()
+        {
+            return Results.Ok(noService.GetData());
         }
     }
 }

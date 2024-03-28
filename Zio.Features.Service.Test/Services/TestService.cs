@@ -1,6 +1,5 @@
-﻿using Autofac.Extras.DynamicProxy;
-using Zio.Features.Core;
-using Zio.Features.Core.Abstraction.DependencyInjection;
+﻿
+using Zio.Features.Core.DependencyInjection;
 using Zio.Features.Service.Test.IServices;
 
 namespace Zio.Features.Service.Test.Services

@@ -12,8 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Zio.Features.Core;
-using Zio.Features.Core.Abstraction.DependencyInjection;
-using Zio.Features.DI.Autofac.Implementation;
+using Zio.Features.Core.DependencyInjection;
 
 namespace Zio.Features.DI.Autofac.Hosting
 {
@@ -29,18 +28,20 @@ namespace Zio.Features.DI.Autofac.Hosting
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>((_, containerBuilder) =>
                 {
-                    var assembly = Assembly.GetEntryAssembly();
+                    // var assembly = Assembly.GetEntryAssembly();
+                    //
+                    // var types = assembly.GetTypes();
+                    //
+                    // RegisterTypes(containerBuilder, types);
+                    //
+                    // var assemblies = assembly.GetReferencedAssemblies().Select(Assembly.Load);
+                    //
+                    // foreach (var item in assemblies)
+                    // {
+                    //     RegisterTypes(containerBuilder, item.GetTypes());
+                    // }
 
-                    var types = assembly.GetTypes();
-
-                    RegisterTypes(containerBuilder, types);
-
-                    var assemblies = assembly.GetReferencedAssemblies().Select(Assembly.Load);
-
-                    foreach (var item in assemblies)
-                    {
-                        RegisterTypes(containerBuilder, item.GetTypes());
-                    }
+                    RegisterTypes(containerBuilder, App.EffectiveTypes);
 
                     containerBuilder.Register(c => new CallLoggerInterceptor(Console.Out));
 
@@ -48,7 +49,7 @@ namespace Zio.Features.DI.Autofac.Hosting
 
                     // 获取所有控制器类型并使用属性注入
                     var controllerBaseType = typeof(ControllerBase);
-                    containerBuilder.RegisterAssemblyTypes(assembly)
+                    containerBuilder.RegisterAssemblyTypes(Assembly.GetEntryAssembly())
                         .Where(t => controllerBaseType.IsAssignableFrom(t) && t != controllerBaseType)
                         .PropertiesAutowired(new AutowiredPropertySelector());
                 });
@@ -74,27 +75,68 @@ namespace Zio.Features.DI.Autofac.Hosting
                     registrationBuilder =
                         containerBuilder
                             .RegisterType(type)
-                            .PropertiesAutowired(new AutowiredPropertySelector())
-                            .AsImplementedInterfaces()
-                            .SingleInstance();
+                            .PropertiesAutowired(new AutowiredPropertySelector());
+
+                    if (type.GetInterfaces().Any(x => !x.IsAssignableTo<ISingletonDependency>()))
+                    {
+                        registrationBuilder.AsImplementedInterfaces();
+                    }
+
+                    registrationBuilder.SingleInstance();
+
+                    if (type.GetInterfaces().Any(x => !x.IsAssignableTo<ISingletonDependency>()))
+                    {
+                        registrationBuilder.EnableInterfaceInterceptors();
+                    }
+                    else
+                    {
+                        registrationBuilder.EnableClassInterceptors();
+                    }
                 }
 
                 else if (type.IsAssignableTo<IScopedDependency>())
                 {
                     registrationBuilder = containerBuilder
                         .RegisterType(type)
-                        .PropertiesAutowired(new AutowiredPropertySelector())
-                        .AsImplementedInterfaces()
-                        .InstancePerLifetimeScope();
+                        .PropertiesAutowired(new AutowiredPropertySelector());
+                    if (type.GetInterfaces().Any(x => !x.IsAssignableTo<IScopedDependency>()))
+                    {
+                        registrationBuilder.AsImplementedInterfaces();
+                    }
+
+                    registrationBuilder.InstancePerLifetimeScope();
+
+                    if (type.GetInterfaces().Any(x => !x.IsAssignableTo<IScopedDependency>()))
+                    {
+                        registrationBuilder.EnableInterfaceInterceptors();
+                    }
+                    else
+                    {
+                        registrationBuilder.EnableClassInterceptors();
+                    }
                 }
 
                 else if (type.IsAssignableTo<ITransientDependency>())
                 {
                     registrationBuilder = containerBuilder
                         .RegisterType(type)
-                        .PropertiesAutowired(new AutowiredPropertySelector())
-                        .AsImplementedInterfaces()
-                        .InstancePerDependency();
+                        .PropertiesAutowired(new AutowiredPropertySelector());
+
+                    if (type.GetInterfaces().Any(x => !x.IsAssignableTo<ITransientDependency>()))
+                    {
+                        registrationBuilder.AsImplementedInterfaces();
+                    }
+
+                    registrationBuilder.InstancePerDependency();
+
+                    if (type.GetInterfaces().Any(x => !x.IsAssignableTo<ITransientDependency>()))
+                    {
+                        registrationBuilder.EnableInterfaceInterceptors();
+                    }
+                    else
+                    {
+                        registrationBuilder.EnableClassInterceptors();
+                    }
                 }
 
                 if (registrationBuilder != null && type.GetCustomAttribute<InjectAttribute>() != null)
@@ -102,8 +144,6 @@ namespace Zio.Features.DI.Autofac.Hosting
                     registrationBuilder
                         .Named(type.GetCustomAttribute<InjectAttribute>().Name, type.GetInterfaces().First());
                 }
-
-                registrationBuilder?.EnableInterfaceInterceptors();
             }
         }
     }

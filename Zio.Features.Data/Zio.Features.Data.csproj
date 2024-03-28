@@ -10,11 +10,4 @@
       <ProjectReference Include="..\Zio.Features.Core\Zio.Features.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Abstraction\" />
-      <Folder Include="Extensions\" />
-      <Folder Include="Implementation\" />
-      <Folder Include="Options\" />
-    </ItemGroup>
-
 </Project>

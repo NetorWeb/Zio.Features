@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Zio.Features.DI.Autofac.Implementation;
+namespace Zio.Features.DI.Autofac;
 
 /// <summary>
 /// 自定义数据实例委托工厂

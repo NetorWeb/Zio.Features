@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zio.Features.Core.Test\Zio.Features.Core.Test.csproj" />
-    <ProjectReference Include="..\Zio.Features.DI.Abstracts\Zio.Features.DI.Autofac.csproj" />
   </ItemGroup>
 
 </Project>

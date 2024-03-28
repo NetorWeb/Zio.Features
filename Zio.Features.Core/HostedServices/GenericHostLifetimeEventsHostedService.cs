@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 
-namespace Zio.Features.Core
+namespace Zio.Features.Core.HostedServices
 {
     public class GenericHostLifetimeEventsHostedService : IHostedService
     {
