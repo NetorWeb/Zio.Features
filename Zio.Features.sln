@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.EntityFramewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.Core.Test", "Zio.Features.Core.Test\Zio.Features.Core.Test.csproj", "{B89B67D1-2D16-4F39-8F92-0EBD9651227D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zio.Features.Ddd.Domain", "Zio.Features.Ddd.Domain\Zio.Features.Ddd.Domain.csproj", "{71C0B0BF-CA94-4AF0-884A-D3AACD53392A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B89B67D1-2D16-4F39-8F92-0EBD9651227D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C0B0BF-CA94-4AF0-884A-D3AACD53392A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C0B0BF-CA94-4AF0-884A-D3AACD53392A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C0B0BF-CA94-4AF0-884A-D3AACD53392A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C0B0BF-CA94-4AF0-884A-D3AACD53392A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{113956E6-0EA9-456D-B6A7-092DD30B0A63} = {F3C2C7A8-E158-4DAF-9ACA-0F57DFAE704D}
 		{D32217FC-C66F-47AF-AF29-991D9479A4D7} = {F3C2C7A8-E158-4DAF-9ACA-0F57DFAE704D}
 		{B89B67D1-2D16-4F39-8F92-0EBD9651227D} = {C2043877-F896-462F-B91A-A6430A36B057}
+		{71C0B0BF-CA94-4AF0-884A-D3AACD53392A} = {F3C2C7A8-E158-4DAF-9ACA-0F57DFAE704D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C625C346-DDFC-4CB0-B0AE-43182BF7E01E}

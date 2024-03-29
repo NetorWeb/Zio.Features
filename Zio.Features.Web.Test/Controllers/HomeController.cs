@@ -100,6 +100,7 @@ namespace Zio.Features.Web.Test.Controllers
         [HttpGet]
         public IResult No()
         {
+            var configurationSection = App.Configuration.GetSection("ConnectionStrings:Default");
             return Results.Ok(noService.GetData());
         }
     }
