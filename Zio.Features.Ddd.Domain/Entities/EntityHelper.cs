@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using Zio.Features.Core;
 using Zio.Features.Core.Reflection;
 
