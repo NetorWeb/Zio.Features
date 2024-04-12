@@ -93,6 +93,21 @@ public static class EntityHelper
         return true;
     }
 
+    public static bool IsEntity([NotNull] Type type)
+    {
+        Check.NotNull(type, nameof(type));
+        return typeof(IEntity).IsAssignableFrom(type);
+    }
+
+    public static void CheckEntity([NotNull] Type type)
+    {
+        Check.NotNull(type, nameof(type));
+        if (!IsEntity(type))
+        {
+            throw new Exception($"Given {nameof(type)} is not an entity: {type.AssemblyQualifiedName}. It must implement {typeof(IEntity).AssemblyQualifiedName}.");
+        }
+    }
+
     private static bool IsDefaultKeyValue(object? value)
     {
         if (value == null)

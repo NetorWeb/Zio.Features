@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Zio.Features.Auditing.Contracts\Zio.Features.Auditing.Contracts.csproj" />
+      <ProjectReference Include="..\Zio.Features.Core\Zio.Features.Core.csproj" />
+      <ProjectReference Include="..\Zio.Features.ObjectExtending\Zio.Features.ObjectExtending.csproj" />
+      <ProjectReference Include="..\Zio.Features.Security\Zio.Features.Security.csproj" />
+    </ItemGroup>
+
+</Project>

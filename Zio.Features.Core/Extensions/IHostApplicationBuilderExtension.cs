@@ -8,7 +8,7 @@ using Zio.Features.Core.DependencyInjection;
 
 namespace Zio.Features.Core.Extensions
 {
-    public static class IHostApplicationBuilderExtensions
+    public static class IHostApplicationBuilderExtension
     {
         public static WebApplicationBuilder Inject(this WebApplicationBuilder builder)
         {
